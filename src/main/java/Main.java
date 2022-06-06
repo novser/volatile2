@@ -10,6 +10,10 @@ public class Main {
 
     private final static int storeCount = 3;
     private final static int workTime = 20000;
+    private final static int minBill = 1;
+    private final static int maxBill = 1000;
+
+    private static LongAdder income = new LongAdder();
 
     public static void main(String[] args) {
 
@@ -30,5 +34,14 @@ public class Main {
             pool.shutdown();
         }
 
+        System.out.println("Итоговая прибыль: " + income.sum());
+    }
+
+    public static void addIncome(int bill) {
+        income.add(bill);
+    }
+
+    public static int getRandomBill() {
+        return (int) (Math.random() * ((maxBill - minBill) + 1)) + minBill;
     }
 }

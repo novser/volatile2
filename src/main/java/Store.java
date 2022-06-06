@@ -3,7 +3,7 @@ import java.util.concurrent.Callable;
 public class Store implements Callable<String> {
 
     private final int workTime;
-    private String name;
+    private final String name;
 
     public Store(int workTime, String name) {
         this.workTime = workTime;
@@ -13,12 +13,13 @@ public class Store implements Callable<String> {
     @Override
     public String call() throws Exception {
         long beginTime = System.currentTimeMillis();
-        try {
-            while (System.currentTimeMillis() - beginTime < workTime) {
-            // TODO
-            }
-        } finally {
-            return name;
+
+        while (System.currentTimeMillis() - beginTime < workTime) {
+            int bill = Main.getRandomBill();
+            Main.addIncome(bill);
+            System.out.println(name + " пробил чек на сумму " + bill);
         }
+
+        return name;
     }
 }
